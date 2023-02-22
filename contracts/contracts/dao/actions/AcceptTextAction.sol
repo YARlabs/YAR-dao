@@ -12,6 +12,6 @@ abstract contract AcceptTextAction is IDaoClosureState {
         votingsFactory.enforceIsVotingContract(msg.sender);
 
         acceptedTexts[_textHash] = true;
-        // emit NewAcceptedText({ textHash: _textHash });
+        emit NewAcceptedText({ textHash: _textHash });
     }
 }
