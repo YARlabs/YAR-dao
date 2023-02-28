@@ -84,4 +84,14 @@ contract Dao is
             (_rejectedAmount * ConstantsLibrary.MAX_PERCENTAGE) / votingUsersCount >=
             ConstantsLibrary.MAX_PERCENTAGE - percentageOfVotesToConfirm;
     }
+
+    // Only test, remove on production
+    function setVotingUser(address _user, bool _value) external {
+        votingUsers[_user] = _value;
+        if (_value) {
+            votingUsersCount += 1;
+        } else {
+            votingUsersCount -= 1;
+        }
+    }
 }

@@ -1,0 +1,15 @@
+[
+  {
+    "inputs": [],
+    "name": "votingsFactory",
+    "outputs": [
+      {
+        "internalType": "contract VotingsFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
