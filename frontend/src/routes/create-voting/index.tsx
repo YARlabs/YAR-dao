@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,  } from "react";
 import Withdraw from "../../components/voting-creators/withdraw";
 import WithdrawERC20 from "../../components/voting-creators/withdrawERC20";
 import Fee from "../../components/voting-creators/fee";
@@ -21,23 +21,26 @@ const CreateVoting = () => {
 
     return (
         <>
-            <div className="form-floating m-3">
-                <select value={votingOption} onChange={handleOnChange} className="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option value={"0"}>Open this voting type selection menu</option>
-                    <option value={"1"}>Withdraw</option>
-                    <option value={"2"}>Withdraw ERC20</option>
-                    <option value={"3"}>Fee</option>
-                    <option value={"4"}>Validator Stake Amount</option>
-                    <option value={"5"}>Validator Stake Timeout</option>
-                    <option value={"6"}>Percentage Of Votes To Confirm</option>
-                    <option value={"7"}>Voting Timeout</option>
-                    <option value={"8"}>Custom Text</option>
-                    <option value={"9"}>Certified Connector</option>
-                    <option value={"10"}>Unblock Node</option>
-                    <option value={"11"}>Validator Block Rewards</option>
-                </select>
-                <label>Type of voting</label>
+            <div className="m-3 ">
+                <div className="form-group label-floating">
+                    <label className="control-label">Type of voting</label>
+                    <select value={votingOption} onChange={handleOnChange} className="form-control" aria-label="Floating label select example">
+                        <option value={"0"}>Open this voting type selection menu</option>
+                        <option value={"1"}>Withdraw</option>
+                        <option value={"2"}>Withdraw ERC20</option>
+                        <option value={"3"}>Fee</option>
+                        <option value={"4"}>Validator Stake Amount</option>
+                        <option value={"5"}>Validator Stake Timeout</option>
+                        <option value={"6"}>Percentage Of Votes To Confirm</option>
+                        <option value={"7"}>Voting Timeout</option>
+                        <option value={"8"}>Custom Text</option>
+                        <option value={"9"}>Certified Connector</option>
+                        <option value={"10"}>Unblock Node</option>
+                        <option value={"11"}>Validator Block Rewards</option>
+                    </select>
+                </div>
             </div>
+
             <div className="m-3">
                 {votingOption === "1" && <Withdraw/>}
                 {votingOption === "2" && <WithdrawERC20/>}

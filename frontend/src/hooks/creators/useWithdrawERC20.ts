@@ -15,8 +15,8 @@ export const useWithdrawERC20 = () => {
       if (!factoryContract) return;
       await switchNetwork(10226688);
       const erc20Contract = erc20ContractTemplate(token);
-      const decimals = await erc20Contract?.decimals() as number;
-    //   const decimals = 18;
+      // const decimals = await erc20Contract?.decimals() as number;
+      const decimals = 18;
       const bigNumberAmount = new BigNumber(amount).shiftedBy(+decimals); 
       try {
         const txPromise = await factoryContract.createWithdrawERC20Voting(recipient, token, bigNumberAmount.toString());

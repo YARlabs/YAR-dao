@@ -1,6 +1,6 @@
+import React from 'react';
 import { useEthers } from '@usedapp/core';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import React from 'react';
 import { toast } from 'react-toastify';
 
 
@@ -36,7 +36,7 @@ const Connect = () => {
         )
 
         return (
-            <div className="text-end">
+            <div className="text-end m-1">
                 {
                     (!isLoading && accountData()) || "Wait..."
                 }

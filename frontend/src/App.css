@@ -1,3 +1,39 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content {
+  margin-bottom: 90px;
+}
+
 .active {
   opacity: 0.5;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  border: 10px solid white;
+  border-radius: 50%;
+  border-top-color: #f44336;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: 2s spin infinite linear;
+}
+
+@keyframes spin {
+  from {
+      transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+      transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
