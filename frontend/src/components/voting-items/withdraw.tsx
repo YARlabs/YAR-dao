@@ -42,13 +42,16 @@ const WithdrawVoting = (props: IProp) => {
                 marginBottom: "10px"
             }}
         >
-            <div className="col-md-12">
+            <div className="col-md-11">
                 Withdraw
+            </div>
+
+            <div className="col-md-1">
                 {location.pathname === "/history" && 
                     (
                         isAccepted ? 
-                        <img style={{ marginLeft: "10px" }} src="/assets/img/check-circle-fill.svg" alt="check" width="16" height="16"></img> : 
-                        <img style={{ marginLeft: "10px" }} src="/assets/img/x.svg" width="16" alt="x" height="16"></img>
+                        <div className="badge text-bg-success">Accepted</div> : 
+                        <div className="badge text-bg-danger">Rejected</div>
                     )
                 }
             </div>
