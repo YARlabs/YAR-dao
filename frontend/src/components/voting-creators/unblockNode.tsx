@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useUnblockNode } from "../../hooks/creators/useUnblockNode";
+import { useNavigate } from "react-router-dom";
 
 const UnblockNode = () => {
+    const navigate = useNavigate();
+
     const [hash, setHash] = useState('');
 
     const createHook = useUnblockNode();
     const createVoting = async () => {
         const tx = await createHook(hash);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

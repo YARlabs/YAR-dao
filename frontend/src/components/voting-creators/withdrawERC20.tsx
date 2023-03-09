@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useWithdrawERC20 } from "../../hooks/creators/useWithdrawERC20";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawERC20 = () => {
+    const navigate = useNavigate();
+
     const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
     const [token, setToken] = useState('');
@@ -9,7 +12,12 @@ const WithdrawERC20 = () => {
     const createHook = useWithdrawERC20();
     const createVoting = async () => {
         const tx = await createHook(recipient, token, amount);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

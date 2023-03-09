@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { usePercentageOfVotesToConfirm } from "../../hooks/creators/usePercentageOfVotesToConfirm";
+import { useNavigate } from "react-router-dom";
 
 const PercentageOfVotesToConfirm = () => {
+    const navigate = useNavigate();
+
     const [percentage, setPercentage] = useState('');
 
     const createHook = usePercentageOfVotesToConfirm();
     const createVoting = async () => {
         const tx = await createHook(percentage);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

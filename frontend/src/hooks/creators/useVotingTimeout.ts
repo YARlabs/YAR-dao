@@ -1,6 +1,7 @@
 import { useEthers } from "@usedapp/core";
 import { useCallback } from "react";
 import { useContracts } from "../useContracts";
+import { toast } from "react-toastify";
 
 export const useVotingTimeout = () => {
   const { factoryContract } = useContracts();
@@ -13,6 +14,14 @@ export const useVotingTimeout = () => {
       const seconds = Number(days) * 86400;   
       try {
         const txPromise = await factoryContract.createVotingTimeoutVoting(seconds);
+        toast.info('Sending a transaction', {
+          position: "top-center",
+          autoClose: 8000,
+          hideProgressBar: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });
         const tx = await txPromise.wait();
         return tx;
       } catch (error: any) {

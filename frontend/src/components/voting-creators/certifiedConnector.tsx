@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useCertifiedConnector } from "../../hooks/creators/useCertifiedConnector";
+import { useNavigate } from "react-router-dom";
 
 const CertifiedConnector = () => {
+    const navigate = useNavigate();
+
     const [hash, setHash] = useState('');
     const [boolValue, setBoolValue] = useState(false);
 
@@ -12,7 +15,12 @@ const CertifiedConnector = () => {
     const createHook = useCertifiedConnector();
     const createVoting = async () => {
         const tx = await createHook(hash, boolValue);
+
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+        
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

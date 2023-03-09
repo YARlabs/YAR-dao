@@ -1,6 +1,7 @@
 import { useEthers } from "@usedapp/core";
 import { useCallback } from "react";
 import { useContracts } from "../useContracts";
+import { toast } from "react-toastify";
 import BigNumber from "bignumber.js";
 BigNumber.config({ EXPONENTIAL_AT: 60 });
 
@@ -15,6 +16,14 @@ export const useValidatorStakeAmount = () => {
       const bigAmount = new BigNumber(amount).shiftedBy(+18);   
       try {
         const txPromise = await factoryContract.createValidatorStakeAmountVoting(bigAmount.toString());
+        toast.info('Sending a transaction', {
+          position: "top-center",
+          autoClose: 8000,
+          hideProgressBar: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });
         const tx = await txPromise.wait();
         return tx;
       } catch (error: any) {

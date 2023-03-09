@@ -1,10 +1,13 @@
 import { useVote } from "../../hooks/useVote";
 import { Event } from "ethers"; 
+import { useLocation } from 'react-router-dom';
+
 type IProp = {
     event: Event
 }
 
 const WithdrawERC20Voting = (props: IProp) => {
+    const location = useLocation();
     
     const voteHook = useVote();
     const vote = async (isAccepted: boolean) => {
@@ -61,26 +64,30 @@ const WithdrawERC20Voting = (props: IProp) => {
                 </div>
             </div>
             
-            <div className="col-md-2">
-                <div className="form-floating">
-                    <button
-                        className="btn btn-success w-100"
-                        onClick={() => vote(true)}
-                    >
-                        Accept
-                    </button>
+            {location.pathname !== "/history" && 
+            <div className="row">
+                <div className="col-md-2">
+                    <div className="form-floating">
+                        <button
+                            className="btn btn-success w-100"
+                            onClick={() => vote(true)}
+                        >
+                            Accept
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div className="col-md-2">
-                <div className="form-floating">
-                    <button
-                        className="btn btn-danger w-100"
-                        onClick={() => vote(false)}
-                    >
-                        Reject
-                    </button>
+                <div className="col-md-2">
+                    <div className="form-floating">
+                        <button
+                            className="btn btn-danger w-100"
+                            onClick={() => vote(false)}
+                        >
+                            Reject
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </div>}
+
         </div>
     )
 }

@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useFee } from "../../hooks/creators/useFee";
+import { useNavigate } from "react-router-dom";
 
 const Fee = () => {
+    const navigate = useNavigate();
+
     const [fee, setFee] = useState('');
 
     const createHook = useFee();
     const createVoting = async () => {
         const tx = await createHook(fee);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

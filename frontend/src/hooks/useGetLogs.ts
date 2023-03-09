@@ -8,7 +8,7 @@ export const contractFactory = new Contract(addressFactory, VotingsFactory, prov
 export const useGetLogs = () => {
 
     return useCallback(
-        async (filter: EventFilter, blockFrom: number, toBlock: number) => {  
+        async (filter: EventFilter, blockFrom?: number, toBlock?: number) => {  
             try {
                 const results = await contractFactory.queryFilter(filter, blockFrom, toBlock)
                 return results;

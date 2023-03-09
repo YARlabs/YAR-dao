@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useVotingTimeout } from "../../hooks/creators/useVotingTimeout";
+import { useNavigate } from "react-router-dom";
 
 const VotingTimeout = () => {
+    const navigate = useNavigate();
+
     const [days, setDays] = useState('');
 
     const createHook = useVotingTimeout();
     const createVoting = async () => {
         const tx = await createHook(days);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

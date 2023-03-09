@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useValidatorStakeAmount } from "../../hooks/creators/useValidatorStakeAmount";
+import { useNavigate } from "react-router-dom";
 
 const ValidatorStakeAmount = () => {
+    const navigate = useNavigate();
+
     const [amount, setAmount] = useState('');
 
     const createHook = useValidatorStakeAmount();
     const createVoting = async () => {
         const tx = await createHook(amount);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
     
     return (

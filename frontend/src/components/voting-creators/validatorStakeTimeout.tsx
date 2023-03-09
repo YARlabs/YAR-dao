@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useValidatorStakeTimeout } from "../../hooks/creators/useValidatorStakeTimeout";
+import { useNavigate } from "react-router-dom";
 
 const ValidatorStakeTimeout = () => {
+    const navigate = useNavigate();
+
     const [days, setDays] = useState('');
 
     const createHook = useValidatorStakeTimeout();
     const createVoting = async () => {
         const tx = await createHook(days);
+                
+        const addressVoting = tx?.logs[0].address;
+        console.log('address voting:', addressVoting);
+
         console.log('tx', tx);
+        navigate('/');
     }
 
     return (

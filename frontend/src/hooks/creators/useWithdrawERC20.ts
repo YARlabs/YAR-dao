@@ -1,25 +1,34 @@
 import { useEthers } from "@usedapp/core";
 import { useCallback } from "react";
 import { useContracts } from "../useContracts";
-import { useERC20Contracts } from "../useERC20Contracts";
+// import { useERC20Contracts } from "../useERC20Contracts";
+import { toast } from "react-toastify";
 import BigNumber from "bignumber.js";
 BigNumber.config({ EXPONENTIAL_AT: 60 });
 
 export const useWithdrawERC20 = () => {
   const { factoryContract } = useContracts();
   const { switchNetwork } = useEthers();
-  const erc20ContractTemplate = useERC20Contracts();
+  // const erc20ContractTemplate = useERC20Contracts();
 
   return useCallback(
     async (recipient: string, token: string, amount: string) => {
       if (!factoryContract) return;
       await switchNetwork(10226688);
-      const erc20Contract = erc20ContractTemplate(token);
+      // const erc20Contract = erc20ContractTemplate(token);
       // const decimals = await erc20Contract?.decimals() as number;
       const decimals = 18;
       const bigNumberAmount = new BigNumber(amount).shiftedBy(+decimals); 
       try {
         const txPromise = await factoryContract.createWithdrawERC20Voting(recipient, token, bigNumberAmount.toString());
+        toast.info('Sending a transaction', {
+          position: "top-center",
+          autoClose: 8000,
+          hideProgressBar: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });
         const tx = await txPromise.wait();
         return tx;
       } catch (error: any) {
