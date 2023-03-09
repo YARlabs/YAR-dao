@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { useVote } from "../../hooks/useVote";
 import { Event } from "ethers"; 
 import { useLocation } from 'react-router-dom';
+import { useIsAccepted } from "../../hooks/useIsAccepted";
 
 type IProp = {
     event: Event
@@ -8,11 +10,26 @@ type IProp = {
 
 const ValidatorStakeTimeoutVoting = (props: IProp) => {
     const location = useLocation();
+    const isAcceptedHook = useIsAccepted();
+    const [isAccepted, setIsAccepted] = useState(false);
 
     const voteHook = useVote();
     const vote = async (isAccepted: boolean) => {
         voteHook(props.event.args?.['contractAddress'], isAccepted);
     }
+
+    useEffect(
+        () => {
+            if(location.pathname === "/history") {
+                const fetchData = async () => {
+                    const resposnseIsAccepted = await isAcceptedHook(props.event.args?.['contractAddress']) as boolean;   
+                    setIsAccepted(resposnseIsAccepted);
+                }
+                fetchData().catch(console.error);
+            }
+        }
+    );
+
     
     return (
         <div className="row"
@@ -28,6 +45,13 @@ const ValidatorStakeTimeoutVoting = (props: IProp) => {
         >
             <div className="col-md-12">
                 Validator Stake Timeout
+                {location.pathname === "/history" && 
+                    (
+                        isAccepted ? 
+                        <img style={{ marginLeft: "10px" }} src="/assets/img/check-circle-fill.svg" alt="check" width="16" height="16"></img> : 
+                        <img style={{ marginLeft: "10px" }} src="/assets/img/x.svg" width="16" alt="x" height="16"></img>
+                    )
+                }
             </div>
             <div className="col-md-6">
                 <div className="form-floating">

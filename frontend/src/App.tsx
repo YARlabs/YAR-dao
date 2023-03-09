@@ -27,12 +27,22 @@ function App() {
             <img src='https://yarchain.org/img/yar_logo.svg' alt='' style={{ width: '15%' }} />
               <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style={{marginLeft: "45px"} }>
                 <li>
-                  <NavLink className="nav-link px-2 text-white" to="/">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav-link px-2 text-white" : "nav-link px-2 text-white opacity-50"
+                    } 
+                    to="/"
+                  >
                     In Progress
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-link px-2 text-white" to="/history">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav-link px-2 text-white" : "nav-link px-2 text-white opacity-50"
+                    }
+                    to="/history"
+                  >
                     History
                   </NavLink>
                 </li>

@@ -12,10 +12,6 @@ footer {
   margin-bottom: 90px;
 }
 
-.active {
-  opacity: 0.5;
-}
-
 .spinner {
   width: 80px;
   height: 80px;
