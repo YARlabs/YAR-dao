@@ -5,7 +5,7 @@
 In the project directory, you can run:
 
 *******
-Must have:
+# Must have:
 1) Installing dependencies:
 ### `npm i`
 2) Type generation:
