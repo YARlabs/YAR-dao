@@ -1,5 +1,5 @@
 import ethers from 'ethers'
-import { TypedEvent, TypedEventFilter } from '../typechain-types/common'
+import { TypedEvent, TypedEventFilter } from '../typechain-types/internal'
 
 export class ContractReceiptUtils {
   

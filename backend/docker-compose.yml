@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: yar_dao_postgres_container
+    image: postgres
+    environment:
+      PGDATA: /data/postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - yar_dao_postgres_vol:/data/postgres
+    ports:
+      - ${POSTGRES_PORT}:5432
+    networks:
+      - net
+    restart: always
+
+networks:
+  net:
+    name: ${APP_NETWORK}
+    driver: bridge
+
+volumes:
+  yar_dao_postgres_vol:
