@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   postgres:
-    container_name: yar_dao_postgres_container
+    container_name: ${POSTGRES_CONTAINER_NAME}
     image: postgres
     environment:
       PGDATA: /data/postgres
@@ -12,7 +12,7 @@ services:
     volumes:
       - yar_dao_postgres_vol:/data/postgres
     ports:
-      - ${POSTGRES_PORT}:5432
+      - '${POSTGRES_PORT_EXT}:5432'
     networks:
       - net
     restart: always
