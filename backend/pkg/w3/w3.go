@@ -1,4 +1,4 @@
-package utils
+package w3
 
 import (
 	"github.com/ethereum/go-ethereum/accounts"
