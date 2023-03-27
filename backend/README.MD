@@ -3,6 +3,8 @@ Method for setting voting data
 POST: /api/voting
 ```
 REQUEST
+
+Addresses must include the "0x" prefix
 ```azure
 {
     "address": "XXXXXXXXXXXXXX",
