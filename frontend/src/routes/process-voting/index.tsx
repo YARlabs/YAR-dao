@@ -10,6 +10,7 @@ import ComponentsItem from '../../components/components-item';
 
 const ProcessVoting = () => {
     const [allVotings, setAllVotings] = useState<Array<Event>>([]);
+    const [noneVotings, setNoneVotings] = useState(false);
 
     const getLogsHook = useGetLogs();
     const dater = new EthDater(
@@ -20,7 +21,7 @@ const ProcessVoting = () => {
         () => {    
             const currentTimestamp = Date.now();
             const fetchData = async () => {
-                const fromBlockResult = await dater.getDate(
+                const fromBlockResult = dater.getDate(
                     currentTimestamp - ( votingDuration + 10 ) * 1000
                 )
                 const toBlock = await provider.getBlockNumber();
@@ -31,7 +32,11 @@ const ProcessVoting = () => {
                     allLogs.push(...logs);
                 }
                 allLogs.sort((a, b) => a.blockNumber > b.blockNumber ? -1 : 1);
-                setAllVotings(allLogs);
+                if(allLogs.length) { 
+                    setAllVotings(allLogs);
+                } else {
+                    setNoneVotings(true);
+                }
             }
             fetchData().catch(console.error);
         }, 
@@ -41,7 +46,8 @@ const ProcessVoting = () => {
     return (
         <>
             <div className="m-3">
-                {allVotings.length === 0 && <div className="spinner"></div>}
+                {allVotings.length === 0 && !noneVotings && <div className="spinner"></div>}
+                {noneVotings && <div>There are no actual votes yet</div>}
                 {allVotings.length > 0 && allVotings.map(block => ComponentsItem(block))}
             </div>
         </>

@@ -1,14 +1,12 @@
 import { useCallback } from "react";
-import { useBaseVotingsContracts } from "./useBaseVotingsContracts";
+import axios from 'axios';
 
-export const useIsAccepted = () => {
-    const BaseVotingTemplate = useBaseVotingsContracts();
-  
+export const useGetDescription = () => {
     return useCallback(
-      async (votingAddress: string) => {
-        const votingContract = BaseVotingTemplate(votingAddress);
+      async (addressVoting: string) => {
         try {
-            const response = await votingContract?.isAccepted();
+            const response = await axios.get(`https://dao.testnet.yarchain.org/api/voting/${addressVoting}`);
+            console.log("response", response);
             return response;
         } catch (error: any) {
             const errorMessage =
@@ -19,6 +17,6 @@ export const useIsAccepted = () => {
             console.error(errorMessage);
         }
       },
-      [BaseVotingTemplate]
+      []
     );
   };

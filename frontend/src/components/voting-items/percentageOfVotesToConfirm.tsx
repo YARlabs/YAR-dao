@@ -3,6 +3,7 @@ import { useVote } from "../../hooks/useVote";
 import { Event } from "ethers"; 
 import { useLocation } from 'react-router-dom';
 import { useIsAccepted } from "../../hooks/useIsAccepted";
+import { useGetDescription } from "../../hooks/useGetDescription"; 
 
 type IProp = {
     event: Event
@@ -12,7 +13,9 @@ const PercentageOfVotesToConfirmVoting = (props: IProp) => {
     const location = useLocation();
     const isAcceptedHook = useIsAccepted();
     const [isAccepted, setIsAccepted] = useState(false);
+    const [votingDescription, setDescription] = useState("");
 
+    const getDescriptionHook = useGetDescription();
     const voteHook = useVote();
     const vote = async (isAccepted: boolean) => {
         voteHook(props.event.args?.['contractAddress'], isAccepted);
@@ -20,6 +23,13 @@ const PercentageOfVotesToConfirmVoting = (props: IProp) => {
 
     useEffect(
         () => {
+            const fetchDescription = async () => {
+                const description: any = await getDescriptionHook(props.event.args?.['contractAddress']);
+                if(description !== undefined) {
+                    setDescription(description.data.description)
+                }
+            }
+            fetchDescription().catch(console.error);
             if(location.pathname === "/history") {
                 const fetchData = async () => {
                     const resposnseIsAccepted = await isAcceptedHook(props.event.args?.['contractAddress']) as boolean;   
@@ -55,8 +65,14 @@ const PercentageOfVotesToConfirmVoting = (props: IProp) => {
                     )
                 }
             </div>
-            
-
+            {votingDescription !== "" && <div className="col-md-12">
+                <div className="form-floating">
+                    <div className="form-control">
+                        {votingDescription}
+                    </div>
+                    <label>Description</label>
+                </div>
+            </div>}
             <div className="col-md-6">
                 <div className="form-floating">
                     <div className="form-control">
