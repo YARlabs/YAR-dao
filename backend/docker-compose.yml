@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  daosrv:
+    container_name: dao_backend_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    networks:
+      - net
+    depends_on:
+      - postgres
+    restart: always
+
   postgres:
     container_name: ${POSTGRES_CONTAINER_NAME}
     image: postgres
