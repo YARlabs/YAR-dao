@@ -11,6 +11,9 @@ REQUEST
     "description": "XXXXXXXXXXXXXX"
 }
 ```
+```azure
+signature = sig ( address string + description string )
+```
 
 Method for getting voting data
 ```
