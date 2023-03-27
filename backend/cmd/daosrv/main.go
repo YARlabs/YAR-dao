@@ -2,6 +2,8 @@ package main
 
 import (
 	"dao-backend/controllers"
+	"dao-backend/models"
+	"dao-backend/pkg/database"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -16,6 +18,8 @@ func init() {
 	if err_env != nil {
 		log.Fatal("Error loading .env file")
 	}
+	db, _ := database.Connect()
+	db.AutoMigrate(&models.Voting{})
 }
 
 func main() {
