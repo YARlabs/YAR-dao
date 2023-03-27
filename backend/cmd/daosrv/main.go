@@ -23,8 +23,8 @@ func main() {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     strings.Split(os.Getenv("SERVER_CORS_ALLOW_ORIGINS"), ","),
 		AllowMethods:     strings.Split(os.Getenv("SERVER_CORS_ALLOW_METHODS"), ","),
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
+		AllowHeaders:     strings.Split(os.Getenv("SERVER_CORS_ALLOW_HEADERS"), ","),
+		ExposeHeaders:    strings.Split(os.Getenv("SERVER_CORS_ALLOW_EXPOSE_HEADERS"), ","),
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
 			return origin == "https://github.com"
