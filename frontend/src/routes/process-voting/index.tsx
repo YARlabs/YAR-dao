@@ -3,7 +3,8 @@ import { Event } from 'ethers';
 import { useGetLogs } from "../../hooks/useGetLogs";
 import { EventFilter } from 'ethers';
 import { filters } from '../../utils/filters';
-import { votingDuration } from '../../utils/constants'; 
+// import { votingDuration } from '../../utils/constants'; 
+import { lastBlock } from '../../utils/constants'; 
 import { provider } from '../../utils/provider';
 import EthDater from 'ethereum-block-by-date';
 import ComponentsItem from '../../components/components-item';
@@ -19,11 +20,14 @@ const ProcessVoting = () => {
     
     useEffect(
         () => {    
-            const currentTimestamp = Date.now();
+            // const currentTimestamp = Date.now();
             const fetchData = async () => {
-                const fromBlockResult = dater.getDate(
-                    currentTimestamp - ( votingDuration + 10 ) * 1000
-                )
+                // const fromBlockResult = dater.getDate(
+                //     currentTimestamp - ( votingDuration + 10 ) * 1000
+                // )
+                const fromBlockResult = {
+                    block: lastBlock 
+                }
                 const toBlock = await provider.getBlockNumber();
                 const allLogs = [];
                 for(let i = 0; i < filters.length; i++) {
