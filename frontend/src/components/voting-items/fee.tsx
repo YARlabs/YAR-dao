@@ -4,6 +4,7 @@ import { Event } from "ethers";
 import { useLocation } from 'react-router-dom';
 import { useIsAccepted } from "../../hooks/useIsAccepted";
 import { useGetDescription } from "../../hooks/useGetDescription"; 
+import VotingInfo from "../voting-info"; 
 
 type IProp = {
     event: Event
@@ -64,6 +65,7 @@ const FeeVoting = (props: IProp) => {
                     )
                 }
             </div>
+            {<VotingInfo address={props.event.args?.['contractAddress']}/>}
             {votingDescription !== "" && <div className="col-md-12">
                 <div className="form-floating">
                     <div className="form-control">
