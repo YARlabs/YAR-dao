@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Event } from 'ethers';
 import { useGetLogs } from "../../hooks/useGetLogs";
+import { useGetControlInfo } from '../../hooks/useGetСontrolInfo';
 import { EventFilter } from 'ethers';
 import { filters } from '../../utils/filters';
 // import { votingDuration } from '../../utils/constants'; 
@@ -12,7 +13,9 @@ import ComponentsItem from '../../components/components-item';
 const ProcessVoting = () => {
     const [allVotings, setAllVotings] = useState<Array<Event>>([]);
     const [noneVotings, setNoneVotings] = useState(false);
+    const [controlCount, setControlCount] = useState(0);
 
+    const controlInfoHook = useGetControlInfo();
     const getLogsHook = useGetLogs();
     const dater = new EthDater(
         provider
@@ -25,6 +28,8 @@ const ProcessVoting = () => {
                 // const fromBlockResult = dater.getDate(
                 //     currentTimestamp - ( votingDuration + 10 ) * 1000
                 // )
+                const count = await controlInfoHook() as number;
+                setControlCount(count);
                 const fromBlockResult = {
                     block: lastBlock 
                 }
@@ -50,6 +55,7 @@ const ProcessVoting = () => {
     return (
         <>
             <div className="m-3">
+                Number of votes to approve: { controlCount }
                 {allVotings.length === 0 && !noneVotings && <div className="spinner"></div>}
                 {noneVotings && <div>There are no actual votes yet</div>}
                 {allVotings.length > 0 && allVotings.map(block => ComponentsItem(block))}
