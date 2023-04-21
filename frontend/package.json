@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@typechain/ethers-v5": "^10.2.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.12",
+    "@types/node": "^16.18.23",
     "@types/react": "^18.0.28",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.11",
