@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Event } from 'ethers';
 import { useGetLogs } from "../../hooks/useGetLogs";
 import { EventFilter } from 'ethers';
 import { filters } from '../../utils/filters';
 import ComponentsItem from '../../components/components-item';
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
+import HistoryPagination from '../../components/pagination/history';
 
 const HistoryVoting = () => {
-    const [allVotings, setAllVotings] = useState<Array<Event>>([]);
+    const {historyVotings, currentHistoryVotings} = useTypedSelector(state => state.main);
+    const {SetHistoryVotings} = useActions();
     const getLogsHook = useGetLogs();
     
     useEffect(
@@ -19,7 +23,7 @@ const HistoryVoting = () => {
                     allLogs.push(...logs);
                 }
                 allLogs.sort((a, b) => a.blockNumber > b.blockNumber ? -1 : 1);
-                setAllVotings(allLogs);
+                SetHistoryVotings(allLogs);
             }
             fetchData().catch(console.error);
         }, 
@@ -29,9 +33,10 @@ const HistoryVoting = () => {
     return (
         <>
             <div className="m-3">
-                {allVotings.length === 0 && <div className="spinner"></div>}
-                {allVotings.length > 0 && allVotings.map(block => ComponentsItem(block))}
+                {currentHistoryVotings.length === 0 && <div className="spinner"></div>}
+                {currentHistoryVotings.length > 0 && currentHistoryVotings.map(block => ComponentsItem(block))}
             </div>
+            <HistoryPagination />
         </>
     )
 }

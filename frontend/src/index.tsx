@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { DAppProvider, Config } from '@usedapp/core'
+import { DAppProvider, Config } from '@usedapp/core';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const config: Config = {  
   readOnlyChainId: 10226688,
@@ -16,7 +18,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <DAppProvider config={config}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </DAppProvider>
   </React.StrictMode>
 );

@@ -33,3 +33,30 @@ footer {
       transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
+.pagination > li > a
+{
+    background-color: white;
+    color: #00008b;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    background-color: #00008b !Important;
+    border: solid 1px #00008b !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #00008b !Important;
+    border: solid 1px #00008b;
+}

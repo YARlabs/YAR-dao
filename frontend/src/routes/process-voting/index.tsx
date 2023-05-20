@@ -4,14 +4,16 @@ import { useGetLogs } from "../../hooks/useGetLogs";
 import { useGetControlInfo } from '../../hooks/useGetСontrolInfo';
 import { EventFilter } from 'ethers';
 import { filters } from '../../utils/filters';
-// import { votingDuration } from '../../utils/constants'; 
-import { lastBlock } from '../../utils/constants'; 
+import { votingDuration } from '../../utils/constants'; 
 import { provider } from '../../utils/provider';
 import EthDater from 'ethereum-block-by-date';
 import ComponentsItem from '../../components/components-item';
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
 
 const ProcessVoting = () => {
-    const [allVotings, setAllVotings] = useState<Array<Event>>([]);
+    const {processVotings} = useTypedSelector(state => state.main);
+    const {SetProcessVotings} = useActions();
     const [noneVotings, setNoneVotings] = useState(false);
     const [controlCount, setControlCount] = useState(0);
 
@@ -23,16 +25,13 @@ const ProcessVoting = () => {
     
     useEffect(
         () => {    
-            // const currentTimestamp = Date.now();
+            const currentTimestamp = Date.now();
             const fetchData = async () => {
-                // const fromBlockResult = dater.getDate(
-                //     currentTimestamp - ( votingDuration + 10 ) * 1000
-                // )
+                const fromBlockResult = await dater.getDate(
+                    currentTimestamp - ( votingDuration + 10 ) * 1000
+                )                
                 const count = await controlInfoHook() as number;
                 setControlCount(count);
-                const fromBlockResult = {
-                    block: lastBlock 
-                }
                 const toBlock = await provider.getBlockNumber();
                 const allLogs = [];
                 for(let i = 0; i < filters.length; i++) {
@@ -42,7 +41,7 @@ const ProcessVoting = () => {
                 }
                 allLogs.sort((a, b) => a.blockNumber > b.blockNumber ? -1 : 1);
                 if(allLogs.length) { 
-                    setAllVotings(allLogs);
+                    SetProcessVotings(allLogs);
                 } else {
                     setNoneVotings(true);
                 }
@@ -56,9 +55,9 @@ const ProcessVoting = () => {
         <>
             <div className="m-3">
                 Number of votes to approve: { controlCount }
-                {allVotings.length === 0 && !noneVotings && <div className="spinner"></div>}
+                {processVotings.length === 0 && !noneVotings && <div className="spinner"></div>}
                 {noneVotings && <div>There are no actual votes yet</div>}
-                {allVotings.length > 0 && allVotings.map(block => ComponentsItem(block))}
+                {processVotings.length > 0 && processVotings.map(block => ComponentsItem(block))}
             </div>
         </>
     )

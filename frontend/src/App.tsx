@@ -62,7 +62,7 @@ function App() {
             <Route path="/" element={<ProcessVoting/>}></Route>
           </Routes>
         </div>
-        <footer className='text-bg-dark'>
+        <footer className='text-bg-dark' style={{zIndex: "1000"}}>
           <div className="footer-title">
             © 2023, YAR Blockchains interconnector
           </div>
